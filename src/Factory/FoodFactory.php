@@ -34,9 +34,10 @@ final class FoodFactory extends PersistentObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'expiryDate' => self::faker()->dateTime(),
-            'name' => self::faker()->text(255),
-            'quantity' => self::faker()->randomNumber(),
+            'name' => self::faker()->word(),
+            'quantity' => self::faker()->numberBetween(1, 10),
+            'weight' => self::faker()->numberBetween(100, 1000),
+            'expiryDate' => \DateTime::createFromInterface(self::faker()->dateTimeBetween('-10 days', '+30 days')),
         ];
     }
 
