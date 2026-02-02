@@ -1,7 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Mon Frigo - Food Saver{% endblock %}
 
 {% block main %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="">Bienvenue !</h1>
+    </div>
+    <div>
+        {% for aliment in aliments %}
+            <p>{{ aliment.name }}</p>
+        {% endfor %}
+    </div>
 
 {% endblock %}
