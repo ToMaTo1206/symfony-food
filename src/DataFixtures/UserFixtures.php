@@ -13,7 +13,12 @@ class UserFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        UserFactory::createOne(['email' => 'thomas@gmail.com']);
+        UserFactory::createOne(
+            ['email' => 'thomas@gmail.com',
+                'password' => 'test',
+                'firstName' => 'Thomas',
+                'lastName' => 'Denoyelle']
+        );
         UserFactory::createMany(20);
     }
 }
