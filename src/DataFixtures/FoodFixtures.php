@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\FoodFactory;
+use App\Factory\UserFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -10,11 +11,6 @@ class FoodFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        FoodFactory::createMany(20);
 
-        FoodFactory::createOne([
-            'name' => 'Steak',
-            'expiryDate' => new \DateTime('+6 day'),
-        ]);
     }
 }

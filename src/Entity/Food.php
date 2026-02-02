@@ -26,6 +26,10 @@ class Food
     #[ORM\Column(nullable: true)]
     private ?int $weight = null;
 
+    #[ORM\ManyToOne(inversedBy: 'food')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +79,18 @@ class Food
     public function setWeight(?int $weight): static
     {
         $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
