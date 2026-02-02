@@ -12,10 +12,17 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(FoodRepository $repository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $aliments = $repository->findBy([], ['expiryDate' => 'ASC']);
 
         return $this->render('home/index.html.twig', [
             'aliments' => $aliments,
+            'user' => $user,
         ]);
     }
 }
