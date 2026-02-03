@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Mon Profil - Food Saver{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block main %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/tomato/Documents/Projets/symfony-food/src/Controller/UserController.php</code></li>
-        <li>Your template at <code>/Users/tomato/Documents/Projets/symfony-food/templates/user/index.html.twig</code></li>
-    </ul>
-</div>
+                    <div class="card-header bg-primary text-white text-center py-5 position-relative">
+                        <div class="avatar-circle bg-white text-primary shadow-sm mx-auto d-flex align-items-center justify-content-center mb-3">
+                        <span class="display-5 fw-bold">
+                            {{ app.user.firstname|first|upper }}{{ app.user.lastname|first|upper }}
+                        </span>
+                        </div>
+                        <h2 class="h4 mb-0">{{ app.user.firstname }} {{ app.user.lastname }}</h2>
+                        <p class="small opacity-75 mb-0">Membre Food Saver</p>
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <div class="mb-4 text-center">
+                            <label class="text-muted small text-uppercase fw-bold ls-1">Email</label>
+                            <p class="fs-5 text-dark fw-medium">{{ app.user.email }}</p>
+                        </div>
+
+                        <hr class="text-muted opacity-25">
+
+                        <div class="mb-4 text-center d-flex justify-content-around">
+                            <a class="btn btn-primary">Modifier ?</a>
+                            <a class="btn btn-danger">Supprimer ?</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {# Un petit peu de CSS juste pour l'avatar rond #}
+    <style>
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+        .ls-1 {
+            letter-spacing: 1px;
+        }
+    </style>
 {% endblock %}
