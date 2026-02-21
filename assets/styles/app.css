@@ -1,3 +1,41 @@
+:root {
+    --bs-primary: #0e131f;
+    --bs-primary-rgb: 14, 19, 31;
+    --bs-secondary: #f0e8d5;
+    --bs-secondary-rgb: 240, 232, 213;
+}
+
+.btn-primary {
+    --bs-btn-bg: #0e131f;
+    --bs-btn-border-color: #0e131f;
+    --bs-btn-hover-bg: #1a233a;
+    --bs-btn-hover-border-color: #1a233a;
+    --bs-btn-active-bg: #0e131f;
+}
+
+.bg-primary {
+    background-color: var(--bs-primary) !important;
+}
+
+.bg-secondary {
+    background-color: var(--bs-secondary) !important;
+}
+
+.text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.text-secondary {
+    color: var(--bs-secondary) !important;
+}
+
 body {
-    background-color: skyblue;
+    background-color: var(--bs-primary);
+}
+
+.navbar-glass {
+    background-color: rgba(15, 23, 42, 0.80) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
