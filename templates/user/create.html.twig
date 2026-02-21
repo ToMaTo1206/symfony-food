@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0 bg-secondary">
+                <div class="card-body p-4 justify-center align-center d-flex flex-column text-primary">
+                    <h2 class="text-center mb-4 text-primary">Créer un compte</h2>
+
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col-md-6 text-primary">
+                            {{ form_row(form.firstname, {
+                                'label': 'Prénom',
+                                'attr': {'placeholder': 'Ex: John'}
+                            }) }}
+                        </div>
+                        <div class="col-md-6 text-primary">
+                            {{ form_row(form.lastname, {
+                                'label': 'Nom',
+                                'attr': {'placeholder': 'Ex: Doe'}
+                            }) }}
+                        </div>
+                    </div>
+
+                    {{ form_row(form.email, {
+                        'label': 'Adresse email',
+                        'attr': {'placeholder': 'votre@email.com'}
+                    }) }}
+
+                    {{ form_row(form.plainPassword, {
+                        'label': 'Mot de passe',
+                        'attr': {'placeholder': 'Minimum 6 caractères'}
+                    }) }}
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg text-secondary">
+                            S'inscrire 🚀
+                        </button>
+                    </div>
+
+                    {{ form_end(form) }}
+
+                    <hr>
+                    <div class="text-center">
+                        <small class="text-muted">Déjà inscrit ?</small>
+                        <a href="{{ path('app_login') }}" class="text-decoration-none ms-1">Se connecter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

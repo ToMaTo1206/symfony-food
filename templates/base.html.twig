@@ -18,9 +18,9 @@
 <body>
 {% block navbar %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-glass text-secondary shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_home') }}">Food</a>
+            <a class="navbar-brand text-secondary" href="{{ path('app_home') }}">Food</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,11 +28,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <hr />
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Votre frigo</a>
+                        <a class="nav-link text-secondary" href="#">Votre profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Votre profil</a>
+                        <a class="nav-link text-secondary" href="#">Votre frigo</a>
                     </li>
                     <li>
                         {% if app.user %}
