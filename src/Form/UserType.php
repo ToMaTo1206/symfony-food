@@ -19,7 +19,7 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'label' => 'Mot de passe',
-                'required' => true,
+                'required' => false,
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom'
