@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class UserController extends AbstractController
 {
@@ -55,7 +56,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{id<\d+>}/update', name: 'app_user_edit')]
+    #[Route('/user/update', name: 'app_user_update')]
     public function update(Request $request,
                            EntityManagerInterface $entityManager,
                            UserPasswordHasherInterface $passwordHasher,
@@ -84,5 +85,30 @@ final class UserController extends AbstractController
         return $this->render('user/update.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/user/delete', name: 'app_user_delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        TokenStorageInterface $tokenStorage
+    ): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+
+            $request->getSession()->invalidate();
+            $tokenStorage->setToken(null);
+
+            $entityManager->remove($user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_home');
     }
 }
