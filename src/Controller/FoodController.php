@@ -8,6 +8,7 @@ use App\Repository\FoodRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -77,6 +78,35 @@ final class FoodController extends AbstractController
             'food/update.html.twig',
         ['form' => $form]
         );
+    }
+
+    #[Route('/food/{id}/delete', name: 'app_food_delete', requirements: ['id' => '\d+'])]
+    public function delete(Food $food, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if ($food->getUser() !== $this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $form = $this->createFormBuilder()
+            ->add('delete', SubmitType::class)
+            ->add('cancel', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('delete')->isClicked()) {
+                $entityManager->remove($food);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_food');
+            }
+
+            return $this->redirectToRoute('app_food');
+        }
+        return $this->render('food/delete.html.twig',
+            ['form' => $form->createView(),
+                'food' => $food]
+        );
+
     }
 
 }
