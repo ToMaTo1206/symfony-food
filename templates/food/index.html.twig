@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Frigo - Food Saver{% endblock %}
+
+{# Attention : on utilise bien 'main' et pas 'body' par rapport à ton base.html.twig #}
+{% block main %}
+    <div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="text-secondary fw-bold m-0">Mon Frigo</h1>
+
+            <a href="#" class="btn btn-secondary text-primary fw-bold shadow-sm rounded-pill px-4">
+                + Ajouter
+            </a>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+            {% for food in foods %}
+                <div class="col">
+                    <div class="card bg-secondary text-primary shadow-sm border-0 h-100 rounded-4 transition-hover">
+                        <div class="card-body p-4 position-relative">
+
+                            <h3 class="h5 fw-bold mb-3">{{ food.name|capitalize }}</h3>
+
+                            <div class="d-flex flex-column gap-2 mb-4">
+                                <div class="d-flex justify-content-between border-bottom border-primary border-opacity-25 pb-2">
+                                    <span class="fw-semibold opacity-75">Quantité</span>
+                                    <span>{{ food.quantity }}</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between pb-2">
+                                    <span class="fw-semibold opacity-75">Péremption</span>
+                                    <span class="fw-bold">{{ food.expiryDate ? food.expiryDate|date('d/m/Y') : 'Non définie' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 mt-auto">
+                                <button class="btn btn-sm btn-outline-primary rounded-3">✏️</button>
+                                <button class="btn btn-sm btn-outline-danger rounded-3">🗑️</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% else %}
+                <div class="col-12 text-center mt-5">
+                    <div class="p-5 bg-secondary text-primary rounded-4 shadow-sm">
+                        <span class="display-1 d-block mb-3">🍽️</span>
+                        <h2 class="h4 fw-bold">Votre frigo est vide !</h2>
+                        <p class="opacity-75 mb-4">Il est temps de faire les courses et d'ajouter vos premiers aliments pour ne plus rien gaspiller !</p>
+                        <a href="#" class="btn btn-primary text-secondary px-4 py-2 rounded-pill">
+                            Ajouter mon premier aliment
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}
