@@ -16,6 +16,16 @@ class FoodRepository extends ServiceEntityRepository
         parent::__construct($registry, Food::class);
     }
 
+    public function getAllFromUser($user)
+    {
+        $qb = $this->createQueryBuilder('f')
+            ->andWhere('f.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('f.expiryDate', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Food[] Returns an array of Food objects
     //     */

@@ -18,10 +18,10 @@ final class FoodController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $foods = $foodRepository->findAll();
+        $foods = $foodRepository->getAllFromUser($user);
 
         return $this->render('food/index.html.twig', [
-            'foods' => 'foods',
+            'foods' => $foods,
         ]);
     }
 }
