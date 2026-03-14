@@ -4,12 +4,12 @@
 
 {# Attention : on utilise bien 'main' et pas 'body' par rapport à ton base.html.twig #}
 {% block main %}
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
 
         <div class="d-flex justify-content-between align-items-center mb-5">
             <h1 class="text-secondary fw-bold m-0">Mon Frigo</h1>
 
-            <a href="#" class="btn btn-secondary text-primary fw-bold shadow-sm rounded-pill px-4">
+            <a href="{{ path('app_food_create') }}" class="btn btn-secondary text-primary fw-bold shadow-sm rounded-pill px-4">
                 + Ajouter
             </a>
         </div>
@@ -36,8 +36,12 @@
                             </div>
 
                             <div class="d-flex justify-content-end gap-2 mt-auto">
-                                <button class="btn btn-sm btn-outline-primary rounded-3">✏️</button>
-                                <button class="btn btn-sm btn-outline-danger rounded-3">🗑️</button>
+                                <a href="{{ path('app_food_update', {'id': food.id}) }}" class="btn btn-sm btn-outline-primary rounded-3">
+                                    ✏️
+                                </a>
+                                <a href="{{ path('app_food_delete', {'id': food.id}) }}" class="btn btn-sm btn-outline-primary rounded-3">
+                                    🗑️
+                                </a>
                             </div>
 
                         </div>
@@ -50,7 +54,7 @@
                         <span class="display-1 d-block mb-3">🍽️</span>
                         <h2 class="h4 fw-bold">Votre frigo est vide !</h2>
                         <p class="opacity-75 mb-4">Il est temps de faire les courses et d'ajouter vos premiers aliments pour ne plus rien gaspiller !</p>
-                        <a href="#" class="btn btn-primary text-secondary px-4 py-2 rounded-pill">
+                        <a href="{{ path('app_food_create') }}" class="btn btn-primary text-secondary px-4 py-2 rounded-pill">
                             Ajouter mon premier aliment
                         </a>
                     </div>
