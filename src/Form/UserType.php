@@ -22,10 +22,10 @@ class UserType extends AbstractType
                 'required' => false,
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
             ])
         ;
     }

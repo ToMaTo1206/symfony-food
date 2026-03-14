@@ -17,26 +17,26 @@
                     <div class="row">
                         <div class="col-md-6 text-primary">
                             {{ form_row(form.firstname, {
-                                'label': 'Prénom',
-                                'attr': {'placeholder': 'Ex: John'}
+                                label: 'Prénom',
+                                attr: {placeholder: 'Ex: John'},
                             }) }}
                         </div>
                         <div class="col-md-6 text-primary">
                             {{ form_row(form.lastname, {
-                                'label': 'Nom',
-                                'attr': {'placeholder': 'Ex: Doe'}
+                                label: 'Nom',
+                                attr: {placeholder: 'Ex: Doe'},
                             }) }}
                         </div>
                     </div>
 
                     {{ form_row(form.email, {
-                        'label': 'Adresse email',
-                        'attr': {'placeholder': 'votre@email.com'}
+                        label: 'Adresse email',
+                        attr: {placeholder: 'votre@email.com'},
                     }) }}
 
                     {{ form_row(form.plainPassword, {
-                        'label': 'Mot de passe',
-                        'attr': {'placeholder': 'Minimum 6 caractères'}
+                        label: 'Mot de passe',
+                        attr: {placeholder: 'Minimum 6 caractères'},
                     }) }}
 
                     <div class="d-grid mt-4">
@@ -58,4 +58,3 @@
     </div>
 
 {% endblock %}
-

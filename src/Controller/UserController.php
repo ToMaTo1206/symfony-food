@@ -29,14 +29,13 @@ final class UserController extends AbstractController
     }
 
     #[Route('/user/create')]
-    public function create(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $passwordHasher): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $plainPassword = $form->get('plainPassword')->getData();
 
             $hashedPassword = $passwordHasher->hashPassword(
@@ -58,20 +57,20 @@ final class UserController extends AbstractController
 
     #[Route('/user/update', name: 'app_user_update')]
     public function update(Request $request,
-                           EntityManagerInterface $entityManager,
-                           UserPasswordHasherInterface $passwordHasher,
-    )
-    {
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher,
+    ) {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
-        if (!$user) return $this->redirectToRoute('app_login');
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $plainPassword = $form->get('plainPassword')->getData();
             if ($plainPassword) {
                 $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
@@ -79,6 +78,7 @@ final class UserController extends AbstractController
             }
 
             $entityManager->flush();
+
             return $this->redirectToRoute('app_user');
         }
 
@@ -91,9 +91,8 @@ final class UserController extends AbstractController
     public function delete(
         Request $request,
         EntityManagerInterface $entityManager,
-        TokenStorageInterface $tokenStorage
-    ): Response
-    {
+        TokenStorageInterface $tokenStorage,
+    ): Response {
         $user = $this->getUser();
 
         if (!$user) {
@@ -101,7 +100,6 @@ final class UserController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-
             $request->getSession()->invalidate();
             $tokenStorage->setToken(null);
 
