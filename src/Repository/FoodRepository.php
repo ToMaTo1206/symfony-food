@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Food;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use http\Client\Curl\User;
 
 /**
  * @extends ServiceEntityRepository<Food>
@@ -16,12 +17,29 @@ class FoodRepository extends ServiceEntityRepository
         parent::__construct($registry, Food::class);
     }
 
-    public function getAllFromUser($user)
+    public function getAllFromUser($user): array
     {
         $qb = $this->createQueryBuilder('f')
             ->andWhere('f.user = :user')
             ->setParameter('user', $user)
             ->orderBy('f.expiryDate', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findExpiringSoon($user, int $days = 3)
+    {
+        $today = new \DateTimeImmutable('today');
+        $limitDate = new \DateTimeImmutable("+{$days} days");
+
+        $qb = $this->createQueryBuilder('f')
+            ->andWhere('f.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('f.expiryDate < :limitDate')
+            ->andWhere('f.expiryDate >= :today')
+            ->setParameter('limitDate', $limitDate)
+            ->setParameter('today', $today)
+            ->orderBy('f.expiryDate', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
