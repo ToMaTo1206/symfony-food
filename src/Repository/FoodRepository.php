@@ -44,6 +44,20 @@ class FoodRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findExpiring($user)
+    {
+        $today = new \DateTimeImmutable('today');
+
+        $qb = $this->createQueryBuilder('f')
+            ->andWhere('f.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('f.expiryDate < :today')
+            ->setParameter('today', $today)
+            ->orderBy('f.expiryDate', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Food[] Returns an array of Food objects
     //     */
