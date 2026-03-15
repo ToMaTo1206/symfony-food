@@ -5,9 +5,19 @@
 {% block main %}
     <div class="container mt-4">
 
-        <div class="mb-5">
-            <h1 class="text-secondary fw-bold display-5">Bonjour, {{ app.user.firstname }} !</h1>
-            <p class="text-secondary opacity-75 fs-5">Voici le récapitulatif de votre frigo.</p>
+        <div class="mb-5 d-flex flex-column flex-md-row justify-content-around align-items-md-center">
+
+            <div class="text-center text-md-left">
+                <h1 class="text-secondary fw-bold display-5">Bonjour, {{ app.user.firstname }} !</h1>
+                <p class="text-secondary opacity-75 fs-5 mb-0">Voici le récapitulatif de votre frigo.</p>
+            </div>
+
+            <div class="text-center text-md-end mt-4 mt-md-0">
+                <a href="{{ path('app_food') }}" class="btn btn-secondary text-primary btn-lg rounded-pill px-5 py-3 shadow-sm fw-bold fs-5">
+                    Ouvrir mon frigo
+                </a>
+            </div>
+
         </div>
 
         <div class="card bg-secondary text-primary border-0 rounded-4 shadow-lg mb-5">
@@ -88,21 +98,5 @@
 
             </div>
         </div>
-
-        <div class="text-center mt-5">
-            <a href="{{ path('app_food') }}" class="btn btn-secondary text-primary btn-lg rounded-pill px-5 py-3 shadow-sm fw-bold fs-5">
-                Ouvrir mon frigo complet
-            </a>
-        </div>
-
     </div>
-
-    <style>
-        .transition-hover {
-            transition: transform 0.2s ease-in-out;
-        }
-        .transition-hover:hover {
-            transform: translateY(-4px);
-        }
-    </style>
 {% endblock %}
