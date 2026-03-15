@@ -1,15 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Frigo - Food Saver{% endblock %}
+{% block title %}Accueil - Food Saver{% endblock %}
 
 {% block main %}
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="">Bienvenue !</h1>
-    </div>
-    <div>
-        {% for aliment in aliments %}
-            <p>{{ aliment.name }}</p>
-        {% endfor %}
+    <div class="container mt-4">
+
+        <div class="mb-5">
+            <h1 class="text-secondary fw-bold display-5">Bonjour, {{ app.user.firstname }} !</h1>
+            <p class="text-secondary opacity-75 fs-5">Voici le récapitulatif de votre frigo.</p>
+        </div>
+
+        <div class="card bg-secondary text-primary border-0 rounded-4 shadow-lg mb-5">
+
+            <div class="card-header bg-transparent border-primary border-opacity-25 p-4 d-flex align-items-center gap-2">
+                <h2 class="h4 mb-0 fw-bold">À consommer d'ici {{ limitDate}} jours</h2>
+            </div>
+
+            <div class="card-body p-4 p-md-5">
+
+                {% if expiringSoon is empty %}
+                    <div class="text-center py-4">
+                        <h3 class="h5 fw-bold text-success">Super nouvelle !</h3>
+                        <p class="mb-0">Aucun aliment de votre frigo ne se périme dans les {{ limitDate }} jours.</p>
+                    </div>
+                {% else %}
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        {% for aliment in expiringSoon %}
+                            <div class="col">
+                                <div class="card bg-primary text-secondary border-0 h-100 rounded-4 shadow-sm transition-hover">
+                                    <div class="card-body">
+                                        <h3 class="h5 fw-bold mb-3">{{ aliment.name|capitalize }}</h3>
+
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="opacity-75 small">Quantité</span>
+                                            <span class="fw-medium">{{ aliment.quantity }}</span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                                            <span class="opacity-75 small">Péremption</span>
+                                            <span class="text-danger fw-bold">{{ aliment.expiryDate|date('d/m/Y') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ path('app_food') }}" class="btn btn-secondary text-primary btn-lg rounded-pill px-5 py-3 shadow-sm fw-bold fs-5">
+                Ouvrir mon frigo complet
+            </a>
+        </div>
+
     </div>
 
+    <style>
+        .transition-hover {
+            transition: transform 0.2s ease-in-out;
+        }
+        .transition-hover:hover {
+            transform: translateY(-4px);
+        }
+    </style>
 {% endblock %}
