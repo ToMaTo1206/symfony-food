@@ -22,9 +22,11 @@ final class HomeController extends AbstractController
 
         $limitDate = 3;
         $expiringSoon = $repository->findExpiringSoon($user, $limitDate);
+        $expiring = $repository->findExpiring($user);
 
         return $this->render('home/index.html.twig', [
             'expiringSoon' => $expiringSoon,
+            'expiring' => $expiring,
             'limitDate' => $limitDate
         ]);
     }
