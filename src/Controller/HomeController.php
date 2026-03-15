@@ -20,10 +20,12 @@ final class HomeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $aliments = $repository->findBy(['user' => $user], ['expiryDate' => 'ASC']);
+        $limitDate = 3;
+        $expiringSoon = $repository->findExpiringSoon($user, $limitDate);
 
         return $this->render('home/index.html.twig', [
-            'aliments' => $aliments,
+            'expiringSoon' => $expiringSoon,
+            'limitDate' => $limitDate
         ]);
     }
 }
