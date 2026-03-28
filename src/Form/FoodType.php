@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Food;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -18,6 +19,11 @@ class FoodType extends AbstractType
             ->add('quantity')
             ->add('expiryDate')
             ->add('weight')
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => '-- Choisir une catégorie --'
+            ])
         ;
     }
 
