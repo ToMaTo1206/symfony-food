@@ -11,12 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class FoodController extends AbstractController
 {
     #[Route('/food', name: 'app_food')]
-    public function index(FoodRepository $foodRepository): Response
+    public function index(FoodRepository $foodRepository,#[MapQueryParameter] ?string $search): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
@@ -24,7 +25,7 @@ final class FoodController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $foods = $foodRepository->getAllFromUser($user);
+        $foods = $foodRepository->getAllFromUser($user, $search);
 
         return $this->render('food/index.html.twig', [
             'foods' => $foods,
