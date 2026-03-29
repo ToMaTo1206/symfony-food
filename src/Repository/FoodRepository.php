@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Food;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use http\Client\Curl\User;
 
 /**
  * @extends ServiceEntityRepository<Food>
@@ -17,12 +16,18 @@ class FoodRepository extends ServiceEntityRepository
         parent::__construct($registry, Food::class);
     }
 
-    public function getAllFromUser($user): array
+    public function getAllFromUser($user, ?string $search): array
     {
         $qb = $this->createQueryBuilder('f')
+            ->leftJoin('f.category', 'c')
             ->andWhere('f.user = :user')
-            ->setParameter('user', $user)
-            ->orderBy('f.expiryDate', 'DESC');
+            ->setParameter('user', $user);
+
+        if (!empty($search)) {
+            $qb->andWhere('(f.name LIKE :search OR c.name LIKE :search)')
+                ->setParameter('search', "%$search%");
+        }
+        $qb->orderBy('f.expiryDate', 'DESC');
 
         return $qb->getQuery()->getResult();
     }

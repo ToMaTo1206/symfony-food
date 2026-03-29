@@ -24,13 +24,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         UserFactory::createMany(20);
 
-        FoodFactory::createMany(100, function() {
+        FoodFactory::createMany(100, function () {
             return [
                 'user' => UserFactory::random(),
                 'category' => CategoryFactory::random(),
             ];
         });
-
     }
 
     public function getDependencies(): array

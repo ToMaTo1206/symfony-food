@@ -16,5 +16,4 @@ class CategoryFixtures extends Fixture
             )
         );
     }
-
 }
