@@ -40,9 +40,7 @@ final class FoodController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
+
 
         $food = new Food();
         $food->setUser($user);
