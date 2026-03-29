@@ -27,7 +27,7 @@ final class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'expiringSoon' => $expiringSoon,
             'expiring' => $expiring,
-            'limitDate' => $limitDate
+            'limitDate' => $limitDate,
         ]);
     }
 }

@@ -6,7 +6,6 @@ use App\Entity\Food;
 use App\Form\FoodType;
 use App\Repository\FoodRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class FoodController extends AbstractController
 {
     #[Route('/food', name: 'app_food')]
-    public function index(FoodRepository $foodRepository,#[MapQueryParameter] ?string $search): Response
+    public function index(FoodRepository $foodRepository, #[MapQueryParameter] ?string $search): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
@@ -35,12 +34,10 @@ final class FoodController extends AbstractController
     #[Route('/food/create', name: 'app_food_create')]
     public function create(
         Request $request,
-        EntityManagerInterface $entityManager
-    ): Response
-    {
+        EntityManagerInterface $entityManager,
+    ): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
-
 
         $food = new Food();
         $food->setUser($user);
@@ -50,6 +47,7 @@ final class FoodController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($food);
             $entityManager->flush();
+
             return $this->redirectToRoute('app_food');
         }
 
@@ -70,12 +68,13 @@ final class FoodController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+
             return $this->redirectToRoute('app_food');
         }
 
         return $this->render(
             'food/update.html.twig',
-        ['form' => $form]
+            ['form' => $form]
         );
     }
 
@@ -96,16 +95,16 @@ final class FoodController extends AbstractController
             if ($form->get('delete')->isClicked()) {
                 $entityManager->remove($food);
                 $entityManager->flush();
+
                 return $this->redirectToRoute('app_food');
             }
 
             return $this->redirectToRoute('app_food');
         }
+
         return $this->render('food/delete.html.twig',
             ['form' => $form->createView(),
                 'food' => $food]
         );
-
     }
-
 }

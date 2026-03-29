@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Food;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use http\Client\Curl\User;
 
 /**
  * @extends ServiceEntityRepository<Food>
