@@ -12,19 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 final class FoodController extends AbstractController
 {
     #[Route('/food', name: 'app_food')]
     public function index(FoodRepository $foodRepository, #[MapQueryParameter] ?string $search): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        $foods = $foodRepository->getAllFromUser($user, $search);
+        $foods = $foodRepository->getAllFromUser($this->getUser(), $search);
 
         return $this->render('food/index.html.twig', [
             'foods' => $foods,
@@ -59,9 +55,9 @@ final class FoodController extends AbstractController
     #[Route('/food/{food}/update', name: 'food_update', requirements: ['food' => '\d+'])]
     public function update(Request $request, Food $food, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ($food->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('Cet aliment ne vous appartient pas !');
+            $this->addFlash('error', 'Cet aliment n\'existe pas.');
+            return $this->redirectToRoute('app_food');
         }
 
         $form = $this->createForm(FoodType::class, $food);
@@ -81,10 +77,10 @@ final class FoodController extends AbstractController
     #[Route('/food/{food}/delete', name: 'food_delete', requirements: ['food' => '\d+'])]
     public function delete(Food $food, EntityManagerInterface $entityManager, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         if ($food->getUser() !== $this->getUser()) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_food');
         }
+
         $form = $this->createFormBuilder()
             ->add('delete', SubmitType::class)
             ->add('cancel', SubmitType::class)
