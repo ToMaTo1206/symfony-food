@@ -44,6 +44,7 @@ final class FoodController extends AbstractController
             $entityManager->persist($food);
             $entityManager->flush();
 
+            $this->addFlash('success', 'L\'aliment a bien été crée.');
             return $this->redirectToRoute('app_food');
         }
 
@@ -65,6 +66,7 @@ final class FoodController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'L\'aliment a bien été modifié.');
             return $this->redirectToRoute('app_food');
         }
 
@@ -92,6 +94,7 @@ final class FoodController extends AbstractController
                 $entityManager->remove($food);
                 $entityManager->flush();
 
+                $this->addFlash('success', 'L\'aliment a bien été supprimé.');
                 return $this->redirectToRoute('app_food');
             }
 
