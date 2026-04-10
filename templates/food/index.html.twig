@@ -42,10 +42,10 @@
                             </div>
 
                             <div class="d-flex justify-content-end gap-2 mt-auto">
-                                <a href="{{ path('app_food_update', {id: food.id}) }}" class="btn btn-sm btn-outline-primary rounded-3">
+                                <a href="{{ path('food_update', {food: food.id}) }}" class="btn btn-sm btn-outline-primary rounded-3">
                                     ✏️
                                 </a>
-                                <a href="{{ path('app_food_delete', {id: food.id}) }}" class="btn btn-sm btn-outline-primary rounded-3">
+                                <a href="{{ path('food_delete', {food: food.id}) }}" class="btn btn-sm btn-outline-primary rounded-3">
                                     🗑️
                                 </a>
                             </div>

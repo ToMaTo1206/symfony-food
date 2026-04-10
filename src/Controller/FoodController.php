@@ -56,7 +56,7 @@ final class FoodController extends AbstractController
         );
     }
 
-    #[Route('/food/{id}/update', name: 'app_food_update', requirements: ['id' => '\d+'])]
+    #[Route('/food/{food}/update', name: 'food_update', requirements: ['food' => '\d+'])]
     public function update(Request $request, Food $food, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -72,13 +72,13 @@ final class FoodController extends AbstractController
             return $this->redirectToRoute('app_food');
         }
 
-        return $this->render(
-            'food/update.html.twig',
-            ['form' => $form]
-        );
+        return $this->render('food/update.html.twig', [
+            'form' => $form,
+            'food' => $food,
+        ]);
     }
 
-    #[Route('/food/{id}/delete', name: 'app_food_delete', requirements: ['id' => '\d+'])]
+    #[Route('/food/{food}/delete', name: 'food_delete', requirements: ['food' => '\d+'])]
     public function delete(Food $food, EntityManagerInterface $entityManager, Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -102,9 +102,9 @@ final class FoodController extends AbstractController
             return $this->redirectToRoute('app_food');
         }
 
-        return $this->render('food/delete.html.twig',
-            ['form' => $form->createView(),
-                'food' => $food]
-        );
+        return $this->render('food/delete.html.twig', [
+            'form' => $form,
+            'food' => $food
+        ]);
     }
 }
