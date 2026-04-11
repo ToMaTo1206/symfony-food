@@ -29,7 +29,11 @@ final class UserController extends AbstractController
     }
 
     #[Route('/user/create', name: 'user_create')]
-    public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function create(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -59,7 +63,8 @@ final class UserController extends AbstractController
     public function update(Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-    ) {
+    ) : Response
+    {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
 
@@ -92,7 +97,8 @@ final class UserController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         TokenStorageInterface $tokenStorage,
-    ): Response {
+    ): Response
+    {
         $user = $this->getUser();
 
         if (!$user) {
