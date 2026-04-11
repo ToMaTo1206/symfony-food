@@ -45,7 +45,7 @@ final class FoodController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'L\'aliment a bien été crée.');
-            return $this->redirectToRoute('app_food');
+            return $this->redirectToRoute('food');
         }
 
         return $this->render('food/create.html.twig', [
@@ -58,7 +58,7 @@ final class FoodController extends AbstractController
     {
         if ($food->getUser() !== $this->getUser()) {
             $this->addFlash('error', 'Cet aliment n\'existe pas.');
-            return $this->redirectToRoute('app_food');
+            return $this->redirectToRoute('food');
         }
 
         $form = $this->createForm(FoodType::class, $food);
@@ -67,7 +67,7 @@ final class FoodController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'L\'aliment a bien été modifié.');
-            return $this->redirectToRoute('app_food');
+            return $this->redirectToRoute('food');
         }
 
         return $this->render('food/update.html.twig', [
@@ -81,7 +81,7 @@ final class FoodController extends AbstractController
     {
         if ($food->getUser() !== $this->getUser()) {
             $this->addFlash('error', 'Cet aliment n\'existe pas.');
-            return $this->redirectToRoute('app_food');
+            return $this->redirectToRoute('food');
         }
 
         $form = $this->createFormBuilder()
@@ -96,10 +96,10 @@ final class FoodController extends AbstractController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'L\'aliment a bien été supprimé.');
-                return $this->redirectToRoute('app_food');
+                return $this->redirectToRoute('food');
             }
 
-            return $this->redirectToRoute('app_food');
+            return $this->redirectToRoute('food');
         }
 
         return $this->render('food/delete.html.twig', [
