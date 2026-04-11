@@ -22,7 +22,7 @@ final class UserController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('user/index.html.twig');
@@ -47,7 +47,7 @@ final class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('user/create.html.twig', [
@@ -64,7 +64,7 @@ final class UserController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         }
 
         $form = $this->createForm(UserType::class, $user);
@@ -96,7 +96,7 @@ final class UserController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -107,6 +107,6 @@ final class UserController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('home');
     }
 }
