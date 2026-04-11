@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+    #[Route('/', name: 'home')]
     public function index(FoodRepository $repository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -17,7 +17,7 @@ final class HomeController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('login');
         }
 
         $limitDate = 3;
