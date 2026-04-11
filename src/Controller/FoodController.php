@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 final class FoodController extends AbstractController
 {
-    #[Route('/food', name: 'app_food')]
+    #[Route('/food', name: 'food')]
     public function index(FoodRepository $foodRepository, #[MapQueryParameter] ?string $search): Response
     {
         $foods = $foodRepository->getAllFromUser($this->getUser(), $search);
@@ -27,7 +27,7 @@ final class FoodController extends AbstractController
         ]);
     }
 
-    #[Route('/food/create', name: 'app_food_create')]
+    #[Route('/food/create', name: 'food_create')]
     public function create(
         Request $request,
         EntityManagerInterface $entityManager,
