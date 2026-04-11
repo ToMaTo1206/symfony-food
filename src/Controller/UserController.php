@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 final class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
+    #[Route('/user', name: 'user')]
     public function index(): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -28,7 +28,7 @@ final class UserController extends AbstractController
         return $this->render('user/index.html.twig');
     }
 
-    #[Route('/user/create')]
+    #[Route('/user/create', name: 'user_create')]
     public function create(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
@@ -55,7 +55,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/update', name: 'app_user_update')]
+    #[Route('/user/update', name: 'user_update')]
     public function update(Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
@@ -79,7 +79,7 @@ final class UserController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render('user/update.html.twig', [
@@ -87,7 +87,7 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/delete', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/user/delete', name: 'user_delete', methods: ['POST'])]
     public function delete(
         Request $request,
         EntityManagerInterface $entityManager,

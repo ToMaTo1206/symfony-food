@@ -29,8 +29,8 @@
                         <hr class="text-muted opacity-25">
 
                         <div class="mb-4 text-center d-flex justify-content-around">
-                            <a class="btn btn-primary" href="{{ path('app_user_update') }}">Modifier ?</a>
-                            <form method="post" action="{{ path('app_user_delete') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer définitivement votre compte ?');">
+                            <a class="btn btn-primary" href="{{ path('user_update') }}">Modifier ?</a>
+                            <form method="post" action="{{ path('user_delete') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer définitivement votre compte ?');">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
 
                                 <button type="submit" class="btn btn-danger">Supprimer ?</button>
