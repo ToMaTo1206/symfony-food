@@ -34,12 +34,12 @@ final class FoodController extends AbstractController
     ): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
-
         $food = new Food();
         $food->setUser($user);
 
         $form = $this->createForm(FoodType::class, $food);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($food);
             $entityManager->flush();
@@ -48,13 +48,13 @@ final class FoodController extends AbstractController
             return $this->redirectToRoute('app_food');
         }
 
-        return $this->render('food/create.html.twig',
-            ['form' => $form->createView()]
-        );
+        return $this->render('food/create.html.twig', [
+            'form' => $form
+        ]);
     }
 
     #[Route('/food/{food}/update', name: 'food_update', requirements: ['food' => '\d+'])]
-    public function update(Request $request, Food $food, EntityManagerInterface $entityManager): Response
+    public function update(Request $request, EntityManagerInterface $entityManager, Food $food): Response
     {
         if ($food->getUser() !== $this->getUser()) {
             $this->addFlash('error', 'Cet aliment n\'existe pas.');
@@ -77,9 +77,10 @@ final class FoodController extends AbstractController
     }
 
     #[Route('/food/{food}/delete', name: 'food_delete', requirements: ['food' => '\d+'])]
-    public function delete(Food $food, EntityManagerInterface $entityManager, Request $request): Response
+    public function delete(Request $request, EntityManagerInterface $entityManager, Food $food): Response
     {
         if ($food->getUser() !== $this->getUser()) {
+            $this->addFlash('error', 'Cet aliment n\'existe pas.');
             return $this->redirectToRoute('app_food');
         }
 
