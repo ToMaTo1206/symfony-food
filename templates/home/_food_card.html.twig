@@ -1,0 +1,17 @@
+<div class="col">
+    <div class="card bg-primary text-secondary border-0 h-100 rounded-4 shadow-sm transition-hover">
+        <div class="card-body">
+            <h3 class="h5 fw-bold mb-3">{{ aliment.name|capitalize }}</h3>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="opacity-75 small">Quantité</span>
+                <span class="fw-medium">{{ aliment.quantity }}</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                <span class="opacity-75 small">Péremption</span>
+                <span class="text-danger fw-bold">{{ aliment.expiryDate|date('d/m/Y') }}</span>
+            </div>
+        </div>
+    </div>
+</div>
