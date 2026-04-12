@@ -1,7 +1,9 @@
-import './stimulus_bootstrap.js';
-import 'bootstrap';
-import Swal from 'sweetalert2';
+import { startStimulusApp } from '@symfony/stimulus-bundle';
+const app = startStimulusApp();
 
+import 'bootstrap';
+
+import Swal from 'sweetalert2';
 window.Swal = Swal;
 
 import 'bootstrap/dist/css/bootstrap.min.css';

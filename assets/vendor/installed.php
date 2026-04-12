@@ -30,6 +30,16 @@
     array (
     ),
   ),
+  'sweetalert2/dist/sweetalert2.min.css' => 
+  array (
+    'version' => '11.26.24',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
   'sweetalert2' => 
   array (
     'version' => '11.26.24',
@@ -50,9 +60,9 @@
     array (
     ),
   ),
-  'sweetalert2/dist/sweetalert2.min.css' => 
+  '@hotwired/stimulus' => 
   array (
-    'version' => '11.26.24',
+    'version' => '3.2.2',
     'dependencies' => 
     array (
     ),
