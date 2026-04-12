@@ -1,14 +1,4 @@
 <?php return array (
-  '@hotwired/stimulus' => 
-  array (
-    'version' => '3.2.2',
-    'dependencies' => 
-    array (
-    ),
-    'extraFiles' => 
-    array (
-    ),
-  ),
   '@hotwired/turbo' => 
   array (
     'version' => '7.3.0',
@@ -30,6 +20,26 @@
     array (
     ),
   ),
+  'bootstrap/dist/css/bootstrap.min.css' => 
+  array (
+    'version' => '5.3.8',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
+  'sweetalert2' => 
+  array (
+    'version' => '11.26.24',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
   '@popperjs/core' => 
   array (
     'version' => '2.11.8',
@@ -40,9 +50,9 @@
     array (
     ),
   ),
-  'bootstrap/dist/css/bootstrap.min.css' => 
+  'sweetalert2/dist/sweetalert2.min.css' => 
   array (
-    'version' => '5.3.8',
+    'version' => '11.26.24',
     'dependencies' => 
     array (
     ),
