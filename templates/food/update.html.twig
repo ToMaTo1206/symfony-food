@@ -14,50 +14,7 @@
                         <p class="opacity-75">Mettez à jour les informations de cet aliment (quantité, date de péremption, etc...).</p>
                     </div>
 
-                    {{ form_start(form) }}
-
-                    <div class="mb-4">
-                        {{ form_row(form.name, {
-                            label: 'Nom de l\'aliment',
-                            attr: {placeholder: 'Ex: Tomates cerises, Yaourt nature...'},
-                        }) }}
-                    </div>
-
-                    <div class="mb-4">
-                        {{ form_row(form.category, {
-                            label: 'Catégorie de l\'aliment',
-                        }) }}
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-md-6 mb-3">
-                            {{ form_row(form.quantity, {
-                                label: 'Quantité',
-                                attr: {placeholder: 'Ex: 2, 500g, 1L...'},
-                            }) }}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            {{ form_row(form.expiryDate, {
-                                label: 'Date de péremption',
-                            }) }}
-                        </div>
-                    </div>
-
-                    {{ form_rest(form) }}
-
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 gap-3">
-
-                        <a href="{{ path('food') }}" class="text-decoration-none text-primary opacity-75 fw-medium order-2 order-md-1">
-                            ← Annuler
-                        </a>
-
-                        <button type="submit" class="btn btn-primary btn-lg text-secondary px-5 rounded-pill shadow-sm order-1 order-md-2 w-100 w-md-auto">
-                            Enregistrer
-                        </button>
-
-                    </div>
-
-                    {{ form_end(form) }}
+                    {{ include('food/_form_card.html.twig') }}
 
                 </div>
             </div>
